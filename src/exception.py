@@ -1,6 +1,6 @@
 # Any exception that is getting controlled, this sys library will automatically have that information
 import sys 
-import logging
+from src.logger import logging
 
 # Whenever an exception gets raised we want to push our own custom message
 # we are giving 2 inputs, one is error and error_detail, this will be present on the sys
@@ -29,9 +29,9 @@ class CustomException(Exception):
     def __str__(self):
         return self.error_message
     
-if __name__=="__main__":
-    try:
-        a=1/0
-    except Exception as e:
-        logging.info("Divide by zero")
-        raise CustomException(e,sys)
+# if __name__=="__main__":
+#     try:
+#         a=1/0
+#     except Exception as e:
+#         logging.info("Divide by zero")
+#         raise CustomException(e,sys)
