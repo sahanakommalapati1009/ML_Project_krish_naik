@@ -5,6 +5,7 @@ matplotlib
 scikit-learn
 catboost
 xgboost
+dill
 # whenever we are trying to install all the libraries in requirement.txt at that point the setup.py should also run. 
 # For enabling that we specifically write -e. This will automatically trigger setup.py
 #-e .
