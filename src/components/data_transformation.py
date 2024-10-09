@@ -95,6 +95,7 @@ class DataTransformation:
             target_column_name="math_score"
             numerical_columns=["writing_score","reading_score"]
 
+        
             input_feature_train_df=train_df.drop(columns=[target_column_name],axis=1)
             target_feature_train_df=train_df[target_column_name]
 
@@ -106,6 +107,7 @@ class DataTransformation:
                 f"Applying preprocessing object on training dataframe and testing dataframe."
             )
 
+            # Calling the pickle file and we are doing fit_transform
             input_feature_train_arr=preprocessing_obj.fit_transform(input_feature_train_df)
             input_feature_test_arr=preprocessing_obj.transform(input_feature_test_df)
 

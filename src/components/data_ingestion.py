@@ -13,6 +13,8 @@ from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 from src.components.data_transformation import DataTransformation
 from src.components.data_transformation import DataTransfromationConfig
+from src.components.model_trainer import ModelTrainerConfig
+from src.components.model_trainer import ModelTrainer
 
 # In data ingestion whenever we are performing the data ingestion component  there should be some inputs that may be probably required by the data ingestion component.
 # The input can be like where  have to save the train data, test data, raw data. 
@@ -62,4 +64,6 @@ if  __name__=="__main__":
     train_data,test_data=obj.initiate_data_ingestion()
     data_transformation=DataTransformation()
     data_transformation.initiate_data_transformation(train_data,test_data)
-
+    train_arr, test_arr,_=data_transformation.initiate_data_transformation(train_data,test_data)
+    modeltrainer=ModelTrainer()
+    print(modeltrainer.initiate_model_trainer(train_arr, test_arr,))
