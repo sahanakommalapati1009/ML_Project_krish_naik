@@ -1,19 +1,19 @@
-import pickle
-from flask import Flask,request, render_template
+from flask import Flask,request,render_template
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
-from src.pipeline.predict_pipeline import CustomData, PredictPipeline
 
-# creating app, application name , creating flask app, __name__ will us the netry point to create the app
+from sklearn.preprocessing import StandardScaler
+from src.pipeline.predict_pipeline import CustomData,PredictPipeline
+
 application=Flask(__name__)
+
 app=application
 
-# Creating route for home page
+## Route for a home page
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html') 
 
 @app.route('/predictdata',methods=['GET','POST'])
 def predict_datapoint():
@@ -39,7 +39,6 @@ def predict_datapoint():
         results=predict_pipeline.predict(pred_df)
         print("after Prediction")
         return render_template('home.html',results=results[0])
-
 
 if __name__=="__main__":
     app.run(host='0.0.0.0', port=8000)
