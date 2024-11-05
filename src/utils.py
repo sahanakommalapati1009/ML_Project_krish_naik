@@ -1,13 +1,14 @@
-# Utils will have all the common functionalities which the entire project can use
 import os
 import sys
-import numpy as np
+
+import numpy as np 
 import pandas as pd
-import pickle
 import dill
-from src.exception import CustomException
+import pickle
 from sklearn.metrics import r2_score
 from sklearn.model_selection import GridSearchCV
+
+from src.exception import CustomException
 
 def save_object(file_path, obj):
     try:
@@ -20,29 +21,28 @@ def save_object(file_path, obj):
 
     except Exception as e:
         raise CustomException(e, sys)
-
+    
 def evaluate_models(X_train, y_train,X_test,y_test,models,param):
     try:
         report = {}
 
-        for i in range(len(list(models))): # Looping through each and every model
-
+        for i in range(len(list(models))):
             model = list(models.values())[i]
+            para=param[list(models.keys())[i]]
 
-            para=param[list(models.keys())[i]] # Listed down all the parameters how we did did for models , this is for hyoer parameter tuning
+            gs = GridSearchCV(model,para,cv=3)
+            gs.fit(X_train,y_train)
 
-            gs = GridSearchCV(model,para,cv=3) # is creating an instance of the GridSearchCV class, which is used for performing hyperparameter tuning by exhaustively searching over a specified parameter grid for the best model
-            
-            gs.fit(X_train,y_train)# training the model
-
-            model.set_params(**gs.best_params_) # setting the parameter
+            model.set_params(**gs.best_params_)
             model.fit(X_train,y_train)
 
-            y_train_pred = model.predict(X_train) #doing the prediction on X_train
+            #model.fit(X_train, y_train)  # Train model
 
-            y_test_pred = model.predict(X_test) #doing the prediction on X_test
+            y_train_pred = model.predict(X_train)
 
-            train_model_score = r2_score(y_train, y_train_pred) #computinh r2_score
+            y_test_pred = model.predict(X_test)
+
+            train_model_score = r2_score(y_train, y_train_pred)
 
             test_model_score = r2_score(y_test, y_test_pred)
 
@@ -52,7 +52,7 @@ def evaluate_models(X_train, y_train,X_test,y_test,models,param):
 
     except Exception as e:
         raise CustomException(e, sys)
-
+    
 def load_object(file_path):
     try:
         with open(file_path, "rb") as file_obj:
