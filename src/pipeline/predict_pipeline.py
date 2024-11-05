@@ -2,6 +2,7 @@
 # In web application we will be having a form where we will give all our input data that is required for predicting the student performance and then submit
 # internally in the backend we will capture the data and that data needs to probably interact with this preprocessor.pkl file and model.pkl then we are able to get the prediction or not
 import sys
+import os
 import pandas as pd
 from src.exception import CustomException
 from src.utils import load_object
